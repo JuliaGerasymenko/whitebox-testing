@@ -3532,21 +3532,21 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/julia/lab3/Lab3/whitebox-testing/whitebox-testing.Tests/whitebox-testing.Tests.csproj",
+      "projectUniqueName": "/home/julia/whitebox-testing/whitebox-testing.Tests/whitebox-testing.Tests.csproj",
       "projectName": "whitebox-testing.Tests",
-      "projectPath": "/home/julia/lab3/Lab3/whitebox-testing/whitebox-testing.Tests/whitebox-testing.Tests.csproj",
+      "projectPath": "/home/julia/whitebox-testing/whitebox-testing.Tests/whitebox-testing.Tests.csproj",
       "packagesPath": "/home/julia/.nuget/packages/",
-      "outputPath": "/home/julia/lab3/Lab3/whitebox-testing/whitebox-testing.Tests/obj/",
+      "outputPath": "/home/julia/whitebox-testing/whitebox-testing.Tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/julia/lab3/Lab3/whitebox-testing/nuget.config",
+        "/home/julia/whitebox-testing/nuget.config",
         "/home/julia/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "/home/julia/lab3/Lab3/whitebox-testing/./References": {},
+        "/home/julia/whitebox-testing/./References": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

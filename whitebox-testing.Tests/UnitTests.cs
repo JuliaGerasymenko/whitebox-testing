@@ -7,31 +7,30 @@ namespace whitebox_testing.Tests
 {
     public class UnitTest1
     {
-        [Fact]
-        public void Test_GetHash_CheckType_True()
-        {
+        // [Fact]
+        // public void Test_GetHash_CheckType_True()
+        // {
 
-          IIG.PasswordHashingUtils.PasswordHasher.Init("a", 2);
-          var generated_hash = IIG.PasswordHashingUtils.PasswordHasher.GetHash("password","1", 0x0071003f);
-          Assert.True(generated_hash is string);
-        }
+        //   IIG.PasswordHashingUtils.PasswordHasher.Init("a", 2);
+        //   var generated_hash = IIG.PasswordHashingUtils.PasswordHasher.GetHash("password","1", 0x0071003f);
+        //   Assert.True(generated_hash is string);
+        // }
         [Fact]
-        public void PasswordHasher_GetHash_Compare_True()
+        public void PasswordHasher_GetHash_DifferAdlerMod_True()
         {
 
             var a = "a";
-            Type type = typeof(IIG.PasswordHashingUtils.PasswordHasher);
-            var adler32checkSum = 50;
             var generated_hash = IIG.PasswordHashingUtils.PasswordHasher.GetHash(a, "1", 50);
             var generated_hash1 = IIG.PasswordHashingUtils.PasswordHasher.GetHash(a, "1", 510);
-            Assert.Equal(generated_hash, generated_hash1);
+            Assert.NotEqual(generated_hash, generated_hash1);
         }
         [Fact]
         public void PasswordHasher_GetHash_NoSalt_True()
         {
             var a = "a";
+            var hash1 = IIG.PasswordHashingUtils.PasswordHasher.GetHash(a, null, 0);
             var hash = IIG.PasswordHashingUtils.PasswordHasher.GetHash(a, null, 0);
-            Assert.Equal("ABFF2389D651B2F7B68D4A4808DA1AD31C6C09B9378E0C9B373082ADA2C9ABEE", hash);
+            Assert.Equal(hash1, hash);
         }
         [Fact]
         public void PasswordHasher_GetHash_CompareLetterA_True()
@@ -42,54 +41,64 @@ namespace whitebox_testing.Tests
             var hash_french_a = IIG.PasswordHashingUtils.PasswordHasher.GetHash(french_a, null, 0);
             Assert.NotEqual(a, french_a);
         }
-        [Fact]
-        public void PasswordHasher_HashSha2_CompareEqual_True()
-        {
-            var a = "a";
-            Type type = typeof(IIG.PasswordHashingUtils.PasswordHasher);
-            var Adler32CheckSumMethod = type.GetMethod("HashSha2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            var Adler32CheckSumVal = Adler32CheckSumMethod.Invoke(null, new object[]{a});
-            var Adler32CheckSumVal2 = Adler32CheckSumMethod.Invoke(null, new object[]{a});
-            Assert.Equal(Adler32CheckSumVal, Adler32CheckSumVal2);
-        }
-        [Fact]
-        public void PasswordHasher_HashSha2_CompareNotEqual_True()
-        {
-            var a = "a";
-            var b = "b";
-            Type type = typeof(IIG.PasswordHashingUtils.PasswordHasher);
-            var Adler32CheckSumMethod = type.GetMethod("HashSha2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            var Adler32CheckSumVal = Adler32CheckSumMethod.Invoke(null, new object[]{a});
-            var Adler32CheckSumVal2 = Adler32CheckSumMethod.Invoke(null, new object[]{b});
-            Assert.NotEqual(Adler32CheckSumVal, Adler32CheckSumVal2);
-        }
-        [Fact]
-        public void PasswordHasher_HashSha2_CompareEqual_DifferInit_True()
-        {
-            var a = "a";
-            var b = "b";
-            Type type = typeof(IIG.PasswordHashingUtils.PasswordHasher);
+        // [Fact]
+        // public void PasswordHasher_HashSha2_CompareEqual_True()
+        // {
+        //     var a = "a";
+        //     Type type = typeof(IIG.PasswordHashingUtils.PasswordHasher);
+        //     var Adler32CheckSumMethod = type.GetMethod("HashSha2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        //     var Adler32CheckSumVal = Adler32CheckSumMethod.Invoke(null, new object[]{a});
+        //     var Adler32CheckSumVal2 = Adler32CheckSumMethod.Invoke(null, new object[]{a});
+        //     Assert.Equal(Adler32CheckSumVal, Adler32CheckSumVal2);
+        // }
+        // [Fact]
+        // public void PasswordHasher_HashSha2_CompareNotEqual_True()
+        // {
+        //     var a = "a";
+        //     var b = "b";
+        //     Type type = typeof(IIG.PasswordHashingUtils.PasswordHasher);
+        //     var Adler32CheckSumMethod = type.GetMethod("HashSha2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        //     var Adler32CheckSumVal = Adler32CheckSumMethod.Invoke(null, new object[]{a});
+        //     var Adler32CheckSumVal2 = Adler32CheckSumMethod.Invoke(null, new object[]{b});
+        //     Assert.NotEqual(Adler32CheckSumVal, Adler32CheckSumVal2);
+        // }
+        // [Fact]
+        // public void PasswordHasher_HashSha2_CompareEqual_DifferInit_True()
+        // {
+        //     var a = "a";
+        //     var b = "b";
+        //     Type type = typeof(IIG.PasswordHashingUtils.PasswordHasher);
             
-            var Adler32CheckSumMethod = type.GetMethod("HashSha2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            IIG.PasswordHashingUtils.PasswordHasher.Init("null123" ,7);
-            var Adler32CheckSumVal = Adler32CheckSumMethod.Invoke(null, new object[]{a});
-            IIG.PasswordHashingUtils.PasswordHasher.Init("null" ,3);
-            var Adler32CheckSumVal2 = Adler32CheckSumMethod.Invoke(null, new object[]{a});
-            Assert.Equal(Adler32CheckSumVal, Adler32CheckSumVal2);
-        }
-        [Fact]
-        public void PasswordHasher_HashSha2_CompareNotEqualLetterA_True()
-        {
-            var a = "a";
-            var french_a = "à";
-            Type type = typeof(IIG.PasswordHashingUtils.PasswordHasher);
+        //     var Adler32CheckSumMethod = type.GetMethod("HashSha2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        //     IIG.PasswordHashingUtils.PasswordHasher.Init("null123" ,7);
+        //     var Adler32CheckSumVal = Adler32CheckSumMethod.Invoke(null, new object[]{a});
+        //     IIG.PasswordHashingUtils.PasswordHasher.Init("null" ,3);
+        //     var Adler32CheckSumVal2 = Adler32CheckSumMethod.Invoke(null, new object[]{a});
+        //     Assert.Equal(Adler32CheckSumVal, Adler32CheckSumVal2);
+        // }
+        // [Fact]
+        // public void PasswordHasher_HashSha2_CompareNotEqualLetterA_True()
+        // {
+        //     var a = "a";
+        //     var french_a = "à";
+        //     Type type = typeof(IIG.PasswordHashingUtils.PasswordHasher);
             
-            var Adler32CheckSumMethod = type.GetMethod("HashSha2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            IIG.PasswordHashingUtils.PasswordHasher.Init("null123" ,7);
-            var Adler32CheckSumVal = Adler32CheckSumMethod.Invoke(null, new object[]{a});
-            IIG.PasswordHashingUtils.PasswordHasher.Init("null" ,3);
-            var Adler32CheckSumVal2 = Adler32CheckSumMethod.Invoke(null, new object[]{french_a});
-            Assert.NotEqual(Adler32CheckSumVal, Adler32CheckSumVal2);
+        //     var Adler32CheckSumMethod = type.GetMethod("HashSha2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        //     IIG.PasswordHashingUtils.PasswordHasher.Init("null123" ,7);
+        //     var Adler32CheckSumVal = Adler32CheckSumMethod.Invoke(null, new object[]{a});
+        //     IIG.PasswordHashingUtils.PasswordHasher.Init("null" ,3);
+        //     var Adler32CheckSumVal2 = Adler32CheckSumMethod.Invoke(null, new object[]{french_a});
+        //     Assert.NotEqual(Adler32CheckSumVal, Adler32CheckSumVal2);
+        // }
+        [Fact]
+        public void PasswordHasher_Init_True()
+        {
+             var a = "a";
+            IIG.PasswordHashingUtils.PasswordHasher.Init(a ,4);
+            var generated_hash = IIG.PasswordHashingUtils.PasswordHasher.GetHash(a);
+            IIG.PasswordHashingUtils.PasswordHasher.Init("11" ,2000);
+            var generated_hash1 = IIG.PasswordHashingUtils.PasswordHasher.GetHash(a);
+            Assert.NotEqual(generated_hash, generated_hash1);
         }
         [Fact]
         public void PasswordHasher_Adler32CheckSum_NegativeIndexLength_True()
